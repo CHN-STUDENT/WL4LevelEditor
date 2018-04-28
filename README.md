@@ -1,5 +1,5 @@
-# WL4LevelEditor
-# 
-### This is the new version of Wario Land 4 Editor after my repo(https://github.com/shinespeciall/WarioLand4MultiEditor), I want to use only Qt for supporting more platforms. This repo is in its early time, it needs time to arrange useful data I found in WL4 ROM file into classes and extract all the Tile Data and some other things from source ROM data to make the new software a pure things without the support of the source ROM file and only make data file for the next-step injection/patching.
-## 
-### my brand-new Discord channel(use this to get in: https://discord.gg/easnNyB) welcome all the WL4 fans who get interested in Qt coding for this software and those who are willing to make new levels and share them.
+# WL4LevelEditor  
+
+This is the new version of Wario Land 4 Editor after my last [repository](https://github.com/shinespeciall/WarioLand4MultiEditor), I program again by Qt(Qt5.9.4 and later version) for supporting more platforms and not only Windows. This repository is in its early time, it needs time to arrange useful data I found in WL4 ROM file into classes and extract all the Tiles Data and some other things from source ROM data, to make the new software doesn't need the support of the source ROM file and producing data files is its sole duty. I will start another repository and build another software to inject/patch all the new Level data into WL4 source ROM.  
+  
+my brand-new [Discord channel](https://discord.gg/easnNyB) welcomes all the WL4 fans who get interested in Qt coding for this software and those who are willing to make new levels and share them.
