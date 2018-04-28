@@ -1,9 +1,8 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#ifndef _DEQUE_
 #include <list>
-#endif
+
 
 struct LevelHeader
 {
@@ -40,6 +39,13 @@ struct MAPLinkerLineRecord
     unsigned char BGM_ID_SecondByte;  //High Byte
 };
 
+//enumerate MakeLinkerTypeFlag for function MakeNewLinker
+#define MakeLinkerFlag_PortalRecord 0;
+#define MakeLinkerFlag_OnlySetBlockAndType 1;  //just make the destination be itself
+#define MakeLinkerFlag_linkExistRecord 2;
+#define MakeLinkerFlag_ChangeBGM 3;
+//end of enumeration
+
 class Level
 {
 public:
@@ -55,7 +61,10 @@ public:
         std::list<MAPLinkerLineRecord> MAPLinkerRecord;
         //remember to add a all-zero record at the bottom of the deque,on loading a new room, the game engine will stop searching the list by a  all-zero record
     public:
-
+        MakeNewLinker(int MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
+                      unsigned char _x1, unsigned char _x2, unsigned char _y1, unsigned char _y2,
+                      unsigned char _LinkerDestination, unsigned char _HorizontalDisplacement, unsigned char _VerticalDisplacement,
+                      unsigned char _SpritesMAP_ID, unsigned char _BGM_ID_FirstByte, unsigned char _BGM_ID_SecondByte);
     };
 
 };
