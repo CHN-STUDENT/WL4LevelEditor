@@ -2,6 +2,7 @@
 #define LEVEL_H
 
 #include <list>
+#include <string>
 
 
 struct LevelHeader
@@ -61,7 +62,7 @@ public:
         std::list<MAPLinkerLineRecord> MAPLinkerRecord;
         //remember to add a all-zero record at the bottom of the deque,on loading a new room, the game engine will stop searching the list by a  all-zero record
     public:
-        MakeNewLinker(int MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
+        AddNewLinker(int MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
                       unsigned char _x1, unsigned char _x2, unsigned char _y1, unsigned char _y2,
                       unsigned char _LinkerDestination, unsigned char _HorizontalDisplacement, unsigned char _VerticalDisplacement,
                       unsigned char _SpritesMAP_ID, unsigned char _BGM_ID_FirstByte, unsigned char _BGM_ID_SecondByte);
