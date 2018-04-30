@@ -15,7 +15,7 @@ Level::MAPLinker::MAPLinker()
     tempRecord.SpritesMAP_ID = 0;
     tempRecord.BGM_ID_FirstByte = 0;
     tempRecord.BGM_ID_SecondByte = 0;
-    MAPLinkerRecord.push_back(tempRecord);  //need a test afterwards here to see the number of '\0'
+    MAPLinkerRecord.push_back(tempRecord);
 }
 
 bool Level::MAPLinker::AddNewLinker(int MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
@@ -37,15 +37,29 @@ bool Level::MAPLinker::AddNewLinker(int MakeLinkerTypeFlag, unsigned char _Linke
     tempRecord.BGM_ID_FirstByte = _BGM_ID_FirstByte;
     tempRecord.BGM_ID_SecondByte = _BGM_ID_SecondByte;
 
-    if(MakeLinkerTypeFlag == MakeLinkerFlag_PortalRecord) //TODO: change all the LinkerDestination in the rest records
+    std::list<MAPLinkerLineRecord>::iterator i;
+
+    if(MakeLinkerTypeFlag == MakeLinkerFlag_PortalRecord)
     {
-        std::list<MAPLinkerLineRecord>::iterator i;
+        if(tempRecord.LinkerTypeFlag != '\1')
+            return false;
         for(i=MAPLinkerRecord.begin(); i!=MAPLinkerRecord.end(); i++)
             if(i->LinkerTypeFlag != 0) //if i is not the last one
                 i->LinkerDestination = i->LinkerDestination+1;
         MAPLinkerRecord.push_front(tempRecord);
+        return true;
     }
-
+    if(MakeLinkerTypeFlag == MakeLinkerFlag_OnlySetBlockAndType)
+    {
+        if(tempRecord.LinkerTypeFlag == '\1')
+            return false;
+        i=MAPLinkerRecord.end();
+        i--; i--;   //get the last record but one
+        tempRecord.LinkerDestination = (unsigned char)MAPLinkerRecord.size();
+        MAPLinkerRecord.insert(i, tempRecord);
+        return true;
+    }
     //TODO: add other condition branches, the difference between is the methods used in list
+    //TODO: add function to check if (x1, y1)-(x2, y2) area has been used
     return true;
 }
