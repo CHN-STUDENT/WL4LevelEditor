@@ -16,6 +16,18 @@ Level::MAPLinker::MAPLinker()
     tempRecord.BGM_ID_FirstByte = 0;
     tempRecord.BGM_ID_SecondByte = 0;
     MAPLinkerRecord.push_back(tempRecord);
+    LevelHeaderData.HardModeMinuteNum = 0;
+    LevelHeaderData.HardModeSecondOnePlaceNum = 0;
+    LevelHeaderData.HardModeSecondTenPlaceNum = 0;
+    LevelHeaderData.HeaderPointerIndex = 0;
+    LevelHeaderData.NormalModeMinuteNum = 0;
+    LevelHeaderData.NormalModeSecondOnePlaceNum = 0;
+    LevelHeaderData.NormalModeSecondTenPlaceNum = 0;
+    LevelHeaderData.NumOfMap = 0;
+    LevelHeaderData.SHardModeMinuteNum = 0;
+    LevelHeaderData.SHardModeSecondOnePlaceNum = 0;
+    LevelHeaderData.SHardModeSecondTenPlaceNum = 0;
+    LevelHeaderData.Unknown0A = (unsigned char)10;
 }
 
 bool Level::MAPLinker::IsLinkerBlockRepeat(unsigned char _RoomID, unsigned char _x1, unsigned char _x2, unsigned char _y1, unsigned char _y2)
@@ -32,7 +44,7 @@ bool Level::MAPLinker::IsLinkerBlockRepeat(unsigned char _RoomID, unsigned char 
     return false;
 }
 
-bool Level::MAPLinker::AddNewLinker(int MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
+bool Level::MAPLinker::AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
                                 unsigned char _x1, unsigned char _x2, unsigned char _y1, unsigned char _y2,
                                 unsigned char _LinkerDestination, unsigned char _HorizontalDisplacement, unsigned char _VerticalDisplacement,
                                 unsigned char _SpritesMAP_ID, unsigned char _BGM_ID_FirstByte, unsigned char _BGM_ID_SecondByte)
@@ -94,7 +106,7 @@ bool Level::MAPLinker::AddNewLinker(int MakeLinkerTypeFlag, unsigned char _Linke
     return false;
 }
 
-bool Level::MAPLinker::AddNewLinker(int MakeLinkerTypeFlag, unsigned char First_RoomID, unsigned char First_x1, unsigned char First_y1,
+bool Level::MAPLinker::AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned char First_RoomID, unsigned char First_x1, unsigned char First_y1,
                                     unsigned char Second_RoomID, unsigned char Second_x1, unsigned char Second_y1)
 {
     if(MakeLinkerTypeFlag == MakeLinkerFlag_linkExistRecord)
@@ -144,4 +156,34 @@ bool Level::MAPLinker::FindUnLinkedLinker(std::list<MAPLinkerLineRecord> &UnLink
     if(UnLinkedLinkerRecord.size()>0)
         return true;
     return false;
+}
+
+bool Level::SetHardModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum)
+{
+    if((_SecondTenPlaceNum > 5 )&&(_OnePlaceNum >9 ))
+        return false;
+    LevelHeaderData.HardModeMinuteNum = _MinuteNum;
+    LevelHeaderData.HardModeSecondTenPlaceNum = _SecondTenPlaceNum;
+    LevelHeaderData.HardModeSecondOnePlaceNum = _OnePlaceNum;
+    return true;
+}
+
+bool Level::SetNormalModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum)
+{
+    if((_SecondTenPlaceNum > 5 )&&(_OnePlaceNum >9 ))
+        return false;
+    LevelHeaderData.NormalModeMinuteNum = _MinuteNum;
+    LevelHeaderData.NormalModeSecondTenPlaceNum = _SecondTenPlaceNum;
+    LevelHeaderData.NormalModeSecondOnePlaceNum = _OnePlaceNum;
+    return true;
+}
+
+bool Level::SetSHardModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum)
+{
+    if((_SecondTenPlaceNum > 5 )&&(_OnePlaceNum >9 ))
+        return false;
+    LevelHeaderData.SHardModeMinuteNum = _MinuteNum;
+    LevelHeaderData.SHardModeSecondTenPlaceNum = _SecondTenPlaceNum;
+    LevelHeaderData.SHardModeSecondOnePlaceNum = _OnePlaceNum;
+    return true;
 }

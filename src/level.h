@@ -4,12 +4,8 @@
 #include <list>
 #include <string>
 
-//enumerate MakeLinkerTypeFlag for function MakeNewLinker
-#define MakeLinkerFlag_PortalRecord 0
-#define MakeLinkerFlag_OnlySetBlockAndType 1  //just make the destination be itself
-#define MakeLinkerFlag_linkExistRecord 2
-#define MakeLinkerFlag_ChangeBGM 3
-//end of enumeration
+enum MakeLinkerFlag{MakeLinkerFlag_PortalRecord = 0, MakeLinkerFlag_OnlySetBlockAndType = 1, MakeLinkerFlag_linkExistRecord = 2, MakeLinkerFlag_ChangeBGM = 3};
+enum LevelDifficulty{Normal = 0, Hard = 1, SHard = 2};
 
 struct LevelHeader
 {
@@ -51,7 +47,11 @@ class Level
 public:
     Level();
 private:
-    struct LevelHeader;
+    struct LevelHeader LevelHeaderData;
+public:
+    bool SetHardModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum);
+    bool SetNormalModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum);
+    bool SetSHardModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum);
 public:
     class MAPLinker
     {
@@ -62,11 +62,11 @@ public:
         //remember to add a all-zero record at the bottom of the deque,on loading a new room, the game engine will stop searching the list by a  all-zero record
         bool IsLinkerBlockRepeat(unsigned char _RoomID, unsigned char _x1, unsigned char _x2, unsigned char _y1, unsigned char _y2);
     public:
-        bool AddNewLinker(int MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
+        bool AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
                       unsigned char _x1, unsigned char _x2, unsigned char _y1, unsigned char _y2,
                       unsigned char _LinkerDestination, unsigned char _HorizontalDisplacement, unsigned char _VerticalDisplacement,
                       unsigned char _SpritesMAP_ID, unsigned char _BGM_ID_FirstByte, unsigned char _BGM_ID_SecondByte);  //MakeLinkerTypeFlag == x00, 0x01, x03
-        bool AddNewLinker(int MakeLinkerTypeFlag, unsigned char First_RoomID, unsigned char First_x1, unsigned char First_y1,
+        bool AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned char First_RoomID, unsigned char First_x1, unsigned char First_y1,
                           unsigned char Second_RoomID, unsigned char Second_x1, unsigned char Second_y1);  //MakeLinkerTypeFlag == x02
         bool FindUnLinkedLinker(std::list<MAPLinkerLineRecord> & UnLinkedLinkerRecord);
     };
