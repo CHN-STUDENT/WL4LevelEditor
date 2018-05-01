@@ -125,3 +125,23 @@ bool Level::MAPLinker::AddNewLinker(int MakeLinkerTypeFlag, unsigned char First_
     }
     return false;
 }
+
+bool Level::MAPLinker::FindUnLinkedLinker(std::list<MAPLinkerLineRecord> &UnLinkedLinkerRecord)
+{
+    std::list<MAPLinkerLineRecord>::iterator i;
+    unsigned char icount;
+    icount = 0;
+
+    for(i=MAPLinkerRecord.begin(); i!=MAPLinkerRecord.end(); i++)
+    {
+        if(i->LinkerTypeFlag == 0)
+            continue;
+        if(i->LinkerDestination == icount)
+            UnLinkedLinkerRecord.push_back(*i);
+        icount++;
+    }
+
+    if(UnLinkedLinkerRecord.size()>0)
+        return true;
+    return false;
+}

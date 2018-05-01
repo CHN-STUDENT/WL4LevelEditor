@@ -68,8 +68,8 @@ public:
                       unsigned char _SpritesMAP_ID, unsigned char _BGM_ID_FirstByte, unsigned char _BGM_ID_SecondByte);  //MakeLinkerTypeFlag == x00, 0x01, x03
         bool AddNewLinker(int MakeLinkerTypeFlag, unsigned char First_RoomID, unsigned char First_x1, unsigned char First_y1,
                           unsigned char Second_RoomID, unsigned char Second_x1, unsigned char Second_y1);  //MakeLinkerTypeFlag == x02
+        bool FindUnLinkedLinker(std::list<MAPLinkerLineRecord> & UnLinkedLinkerRecord);
     };
-
 };
 
 #endif // LEVEL_H
