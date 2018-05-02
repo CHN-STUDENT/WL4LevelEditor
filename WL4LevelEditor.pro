@@ -26,11 +26,13 @@ CONFIG += C++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    src/level.cpp
+    src/level.cpp \
+    src/roommap.cpp
 
 HEADERS += \
         mainwindow.h \
-    src/level.h
+    src/level.h \
+    src/roommap.h
 
 FORMS += \
         mainwindow.ui

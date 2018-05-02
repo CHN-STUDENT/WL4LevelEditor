@@ -36,7 +36,6 @@ bool Level::MAPLinker::AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned 
                                 unsigned char _x1, unsigned char _x2, unsigned char _y1, unsigned char _y2,
                                 unsigned char _LinkerDestination, unsigned char _HorizontalDisplacement, unsigned char _VerticalDisplacement,
                                 unsigned char _SpritesMAP_ID, unsigned char _BGM_ID_FirstByte, unsigned char _BGM_ID_SecondByte)
-
 {
     if((_x1>_x2 || _y1>_y2) || (IsLinkerBlockRepeat(_RoomID, _x1, _x2, _y1, _y2)))   //judge before save record
         return false;
@@ -160,6 +159,16 @@ Level::Level()
     LevelHeaderData.SHardModeSecondOnePlaceNum = 0;
     LevelHeaderData.SHardModeSecondTenPlaceNum = 0;
     LevelHeaderData.Unknown0A = (unsigned char)10;
+}
+
+bool Level::AddNewRoom()
+{
+    if(LevelHeaderData.NumOfMap<=16)
+    {
+        LevelHeaderData.NumOfMap++;
+        return true;
+    }
+    return false;
 }
 
 bool Level::SetHardModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum)

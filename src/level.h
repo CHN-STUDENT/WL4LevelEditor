@@ -2,7 +2,6 @@
 #define LEVEL_H
 
 #include <list>
-#include <string>
 
 enum MakeLinkerFlag{MakeLinkerFlag_PortalRecord = 0, MakeLinkerFlag_OnlySetBlockAndType = 1, MakeLinkerFlag_linkExistRecord = 2, MakeLinkerFlag_ChangeBGM = 3};
 enum LevelDifficulty{Normal = 0, Hard = 1, SHard = 2};
@@ -10,7 +9,7 @@ enum LevelDifficulty{Normal = 0, Hard = 1, SHard = 2};
 struct LevelHeader
 {
     unsigned char HeaderPointerIndex;   //multiply 4 make a shift from some base pointers
-    unsigned char NumOfMap;
+    unsigned char NumOfMap;    //star from 1 so it's okey to initial it by 0
     unsigned char Unknown0A;   //always 0x0A
     unsigned char HardModeMinuteNum;
     unsigned char HardModeSecondTenPlaceNum;
@@ -49,6 +48,7 @@ public:
 private:
     struct LevelHeader LevelHeaderData;
 public:
+    bool AddNewRoom();
     bool SetHardModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum);
     bool SetNormalModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum);
     bool SetSHardModeTimeCountdownCounter(unsigned char _MinuteNum, unsigned char _SecondTenPlaceNum, unsigned char _OnePlaceNum);
@@ -69,6 +69,7 @@ public:
         bool AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned char First_RoomID, unsigned char First_x1, unsigned char First_y1,
                           unsigned char Second_RoomID, unsigned char Second_x1, unsigned char Second_y1);  //MakeLinkerTypeFlag == x02
         bool FindUnLinkedLinker(std::list<MAPLinkerLineRecord> & UnLinkedLinkerRecord);
+        //TODO: need a function to output all the data
     };
 };
 

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "src/level.h"
+#include "src/roommap.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
