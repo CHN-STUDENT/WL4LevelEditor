@@ -2,8 +2,9 @@
 #define LEVEL_H
 
 #include <list>
+#include <string>
 
-enum MakeLinkerFlag{MakeLinkerFlag_PortalRecord = 0, MakeLinkerFlag_OnlySetBlockAndType = 1, MakeLinkerFlag_linkExistRecord = 2, MakeLinkerFlag_ChangeBGM = 3};
+enum MakeLinkerFlag{MakeLinkerFlag_PortalRecord = 0, MakeLinkerFlag_OnlySetBlockAndType = 1, MakeLinkerFlag_linkExistRecord = 2, MakeLinkerFlag_ChangeBGM = 3, MakeLinkerFlag_ChangeSpritesMAP_ID = 4};
 enum LevelDifficulty{Normal = 0, Hard = 1, SHard = 2};
 
 struct LevelHeader
@@ -65,10 +66,11 @@ public:
         bool AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned char _LinkerTypeFlag, unsigned char _RoomID,
                       unsigned char _x1, unsigned char _x2, unsigned char _y1, unsigned char _y2,
                       unsigned char _LinkerDestination, unsigned char _HorizontalDisplacement, unsigned char _VerticalDisplacement,
-                      unsigned char _SpritesMAP_ID, unsigned char _BGM_ID_FirstByte, unsigned char _BGM_ID_SecondByte);  //MakeLinkerTypeFlag == x00, 0x01, x03
+                      unsigned char _SpritesMAP_ID, unsigned char _BGM_ID_FirstByte, unsigned char _BGM_ID_SecondByte);  //MakeLinkerTypeFlag == x00, x01, x03, x04
         bool AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned char First_RoomID, unsigned char First_x1, unsigned char First_y1,
                           unsigned char Second_RoomID, unsigned char Second_x1, unsigned char Second_y1);  //MakeLinkerTypeFlag == x02
         bool FindUnLinkedLinker(std::list<MAPLinkerLineRecord> & UnLinkedLinkerRecord);
+        std::string GetMAPLinker_ToString();
         //TODO: need a function to output all the data
     };
 };

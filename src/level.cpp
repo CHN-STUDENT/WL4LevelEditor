@@ -90,6 +90,15 @@ bool Level::MAPLinker::AddNewLinker(MakeLinkerFlag MakeLinkerTypeFlag, unsigned 
         i->BGM_ID_SecondByte = _BGM_ID_SecondByte;
         return true;
     }
+    if(MakeLinkerTypeFlag == MakeLinkerFlag_ChangeSpritesMAP_ID)
+    {
+        for(i=MAPLinkerRecord.begin(); i!=MAPLinkerRecord.end(); i++)
+            if((i->RoomID == _RoomID) && (i->x1 == _x1) && (i->y1 == _y1))
+                break;
+        i->SpritesMAP_ID = _SpritesMAP_ID;
+        return true;
+    }
+
     return false;
 }
 
@@ -143,6 +152,29 @@ bool Level::MAPLinker::FindUnLinkedLinker(std::list<MAPLinkerLineRecord> &UnLink
     if(UnLinkedLinkerRecord.size()>0)
         return true;
     return false;
+}
+
+std::string Level::MAPLinker::GetMAPLinker_ToString()
+{
+    std::string RecordResult;
+    std::list<MAPLinkerLineRecord>::iterator i;
+
+    for(i=MAPLinkerRecord.begin(); i!=MAPLinkerRecord.end(); i++)
+    {
+            RecordResult.append(1, i->LinkerTypeFlag);
+            RecordResult.append(1, i->RoomID);
+            RecordResult.append(1, i->x1);
+            RecordResult.append(1, i->x2);
+            RecordResult.append(1, i->y1);
+            RecordResult.append(1, i->y2);
+            RecordResult.append(1, i->LinkerDestination);
+            RecordResult.append(1, i->HorizontalDisplacement);
+            RecordResult.append(1, i->VerticalDisplacement);
+            RecordResult.append(1, i->SpritesMAP_ID);
+            RecordResult.append(1, i->BGM_ID_FirstByte);
+            RecordResult.append(1, i->BGM_ID_SecondByte);
+    }
+    return RecordResult;
 }
 
 Level::Level()
